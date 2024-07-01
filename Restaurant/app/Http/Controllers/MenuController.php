@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Menu;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Endroid\QrCode\QrCode;
+use Endroid\QrCode\Writer\PngWriter;
+use Illuminate\Support\Facades\Storage;
 
 class MenuController extends Controller
 {
@@ -30,12 +33,17 @@ class MenuController extends Controller
      */
     public function store(Request $request)
     {
+        if ($request->user()->cannot('create', Menu::class)){
+            abort(403);
+        }
         $val = $request->validate([
-            'url_menu'=> 'required|file|mimes:png,jpg|max:5000',
+            'url_menu' => 'required|file|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'nama'=> 'required|max:40',
             'jenis'=> 'required|max:40',
-            'harga'=> 'required'
+            'harga'=> 'required',
+            'stok'=> 'required'
         ]);
+
         //extensi file yang di upload
         $ext = $request->url_menu->getClientOriginalExtension();
         //rename misal: nama.extensi nasgor.png
@@ -50,9 +58,10 @@ class MenuController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Menu $menu)
+    public function show($menu)
     {
-        //
+        $menu = Menu::findOrFail($menu);
+        return view('menu.show')->with('menu', $menu);
     }
 
     /**
@@ -71,10 +80,11 @@ class MenuController extends Controller
     {
         if ($request->url_menu) {
             $val = $request->validate([
-                'url_menu'=> 'required|file|mimes:png,jpg|max:5000',
+                'url_menu'=> 'required|file|mimes:jpeg,png,jpg,gif,svg|max:5000',
                 'nama'=> 'required|max:40',
                 'jenis'=> 'required|max:40',
-                'harga'=> 'required'
+                'harga'=> 'required',
+                'stok'=> 'required'
             ]);
             //extensi file yang di upload
             $ext = $request->url_menu->getClientOriginalExtension();
@@ -84,10 +94,11 @@ class MenuController extends Controller
             $request->url_menu->move('fotomenu/', $val['url_menu']);
         }else{
             $val = $request->validate([
-                //'url_menu'=> 'required|file|mimes:png,jpg|max:5000',
+                //'url_menu'=> 'required|file|mimes:jpeg,png,jpg,gif,svg|max:5000',
                 'nama'=> 'required|max:40',
                 'jenis'=> 'required|max:40',
-                'harga'=> 'required'
+                'harga'=> 'required',
+                'stok'=> 'required'
             ]);
         }
         $menu = Menu::find($menu);
@@ -104,5 +115,22 @@ class MenuController extends Controller
         File::delete('fotomenu/'.$menu['url_foto']);
         $menu->delete();
         return redirect()->route('menu.index')->with('success','Data Berhasil di Hapus');
+    }
+
+    public function qrCode()
+    {
+        $qrCode = new QrCode(route('menu.index'));
+        $qrCode->setSize(200);
+        $writer = new PngWriter();
+        $qrCodePath = 'qrcodes/menu.png';
+
+        if (!is_dir(public_path('qrcodes'))) {
+            mkdir(public_path('qrcodes'), 0777, true);
+        }
+
+        $result = $writer->write($qrCode);
+        $result->saveToFile(public_path($qrCodePath));
+
+        return view('menu.qrcode', ['qrCodePath' => $qrCodePath]);
     }
 }

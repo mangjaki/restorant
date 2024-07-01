@@ -1,42 +1,70 @@
 @extends('layout.main')
 
 @section('title', 'MENU')
-    
+
 @section('content')
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Menu Restoran</title>
     <link href="{{ url('css/app.css') }}" rel="stylesheet">
     <style>
         .card-img-top {
             width: 100%;
-            height: 300px; /* Sesuaikan dengan tinggi yang diinginkan */
+            height: 300px;
             object-fit: cover;
+        }
+        .card-text {
+            display: flex;
+            align-items: center;
+        }
+        .card-text p {
+            margin: 0; /* Menghapus margin default pada elemen <p> */
+            padding-left: 5px; /* Opsional, untuk memberi jarak antara teks "Produk:" dan elemen <p> */
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h1 class="my-4">Daftar Menu</h1>
-        <a href="{{ route('menu.create') }}" class="btn btn-primary col-lg-3">Tambah Menu</a>
+        @can('create', App\Menu::class)
+            <a href="{{ route('menu.create') }}" class="btn btn-primary col-lg-2">Tambah Menu</a>
+        @endcan
+        @can('qrCode', App\Menu::class)
+            <div>
+                <a href="{{ route('menu.qrcode') }}"><img src="{{ url('qrcodes/menu_1.png') }}" alt="QR Code" class="img-fluid mt-3" style="max-width: 50px;"></a>
+                <p class="mt-2">Klik Barcode!</p>
+            </div>
+        @endcan
         <hr>
         <div class="row">
-            @foreach($menu as $item)
+            @foreach($menu as $menu)
                 <div class="col-md-4 mb-4">
                     <div class="card">
-                        <img src="{{ url('fotomenu/'. $item['url_menu']) }}" class="card-img-top" width="10px">
                         <div class="card-body">
-                            <h5 class="card-title text-center">{{ $item['nama'] }}</h5>
-                            <p class="card-text text-center">{{ $item['jenis'] }}</p>
-                            <p class="card-text text-center">{{ $item['harga'] }}</p>
-                            <div class="d-flex justify-content-between">
-                                <a href="{{ route('menu.edit', $item['id']) }}" class="btn btn-primary btn-sm">Edit</a>
-                                <form action="{{ route('menu.destroy', $item['id']) }}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm show_confirm">Delete</button>
-                                </form>
+                            <img src="{{ asset('fotomenu/' .$menu['url_menu']) }}" class="card-img-top">
+                            <h5 class="card-title text-center">{{ $menu['nama'] }}</h5>
+                            <div class="card-text">
+                                Produk : <p>{{ $menu['jenis'] }}</p>
+                            </div>
+                            <div class="card-text">
+                                Harga  : <p> {{ $menu['harga'] }}</p>
+                            </div>
+                            <div class="card-text">
+                                Stok   : <p> {{ $menu['stok'] }}</p>
+                            </div>
+                        </br>
+                            <div class="text-center">
+                                @can('delete', $menu)
+                                    <form action="{{ route('menu.destroy', $menu['id']) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger btn-sm show_confirm">Hapus</button>
+                                    </form>
+                                @endcan
+                                </br>
+                                @can('update', $menu)
+                                    <a href="{{ route('menu.edit', $menu['id']) }}" class="btn btn-primary btn-sm col-lg-3">Edit</a>
+                                @endcan
                             </div>
                         </div>
                     </div>

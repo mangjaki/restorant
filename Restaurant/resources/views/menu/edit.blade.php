@@ -36,7 +36,14 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label for="url_menu">Harga</label>
+                    <label for="stok">Stok</label>
+                    <input type="number" class="form-control" id="stok" name="stok" value="{{old('stok') ? old('stok'): $menu['stok'] }}" placeholder="Masukan Stok Menu">
+                    @error('stok')
+                        <span class="text-danger">{{$message}}</span>
+                    @enderror
+                </div>
+                <div class="form-group">
+                    <label for="url_menu">Foto</label>
                     <input type="file" class="form-control" id="url_menu" name="url_menu">
                     @error('url_menu')
                         <span class="text-danger">{{$message}}</span>

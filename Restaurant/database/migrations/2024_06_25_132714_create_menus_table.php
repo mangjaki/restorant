@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('nama');
             $table->string('jenis');
             $table->integer('harga');
+            $table->integer('stok');
+            $table->string('qr_code_path')->nullable();
             $table->timestamps();
         });
     }

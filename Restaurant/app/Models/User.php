@@ -44,4 +44,14 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    public function getRoleNameAttribute()
+    {
+        if ($this->role == 'U') {
+            return 'user';
+        } elseif ($this->role == 'A') {
+            return 'admin';
+        } else {
+            return 'unknown'; // Jika role tidak dikenali
+        }
+    }
 }
