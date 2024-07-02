@@ -22,6 +22,10 @@
             "dest": "/public/assets/js/"
         },
         {
+            "src": "/assets/scss/(.*)",
+            "dest": "/public/assets/scss/"
+        },
+        {
             "src": "/assets/vendors/(.*)",
             "dest": "/public/assets/vendors/"
         },
