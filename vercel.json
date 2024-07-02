@@ -26,32 +26,44 @@
             "dest": "/public/assets/fonts/"
         },
         {
-            "src": "/assets/fotemenu/(.*)",
-            "dest": "/public/assets/fotomenu/"
+            "src": "/fotemenu/(.*)",
+            "dest": "/public/fotomenu/"
         },
         {
             "src": "/assets/images/(.*)",
             "dest": "/public/assets/images/"
         },
         {
+            "src": "/images/(.*)",
+            "dest": "/public/images/"
+        },
+        {
             "src": "/assets/js/(.*)",
             "dest": "/public/assets/js/"
+        },
+        {
+            "src": "/js/(.*)",
+            "dest": "/public/js/"
         },
         {
             "src": "/assets/plugins/(.*)",
             "dest": "/public/assets/plugins/"
         },
         {
-            "src": "/assets/qrcodes/(.*)",
-            "dest": "/public/assets/qrcodes/"
+            "src": "/qrcodes/(.*)",
+            "dest": "/public/qrcodes/"
         },
         {
-            "src": "/assets/scss/(.*)",
-            "dest": "/public/assets/scss/"
+            "src": "/scss/(.*)",
+            "dest": "/public/scss/"
         },
         {
             "src": "/assets/vendors/(.*)",
             "dest": "/public/assets/vendors/"
+        },
+        {
+            "src": "/vendors/(.*)",
+            "dest": "/public/vendors/"
         },
         {
             "src": "/(.*)",
