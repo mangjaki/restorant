@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PaymentController;
@@ -28,6 +29,9 @@ Route::middleware(['auth'])->group(function () {
     
     Route::get('order/{order}/pay', [PaymentController::class, 'pay'])->name('order.pay');
     Route::post('order/{order}/pay', [PaymentController::class, 'process'])->name('order.process');
+
+    Route::get('dashboard', [DashboardController::class, 'index'])->name
+('dashboard')->middleware(['auth', 'verified']);
 });
 
 
