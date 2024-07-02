@@ -57,10 +57,7 @@
             "src": "/scss/(.*)",
             "dest": "/public/scss/"
         },
-        {
-            "src": "/assets/vendors/(.*)",
-            "dest": "/public/assets/vendors/"
-        },
+    
         {
             "src": "/vendors/(.*)",
             "dest": "/public/vendors/"
