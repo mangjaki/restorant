@@ -10,20 +10,20 @@
             "dest": "/public/build/"
         },
         {
-            "src": "/css/(.*)",
-            "dest": "/public/css/"
+            "src": "/assets/css/(.*)",
+            "dest": "/public/assets/css/"
         },
         {
-            "src": "/images/(.*)",
-            "dest": "/public/images/"
+            "src": "/assets/images/(.*)",
+            "dest": "/public/assets/images/"
         },
         {
-            "src": "/js/(.*)",
-            "dest": "/public/js/"
+            "src": "/assets/js/(.*)",
+            "dest": "/public/assets/js/"
         },
         {
-            "src": "/vendors/(.*)",
-            "dest": "/public/vendors/"
+            "src": "/assets/vendors/(.*)",
+            "dest": "/public/assets/vendors/"
         },
         {
             "src": "/(.*)",
