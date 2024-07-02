@@ -14,6 +14,10 @@
             "dest": "/public/assets/css/"
         },
         {
+            "src": "/css/(.*)",
+            "dest": "/public/css/"
+        },
+        {
             "src": "/assets/flags/(.*)",
             "dest": "/public/assets/flags/"
         },
