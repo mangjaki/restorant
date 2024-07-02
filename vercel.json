@@ -14,12 +14,32 @@
             "dest": "/public/assets/css/"
         },
         {
+            "src": "/assets/flags/(.*)",
+            "dest": "/public/assets/flags/"
+        },
+        {
+            "src": "/assets/fonts/(.*)",
+            "dest": "/public/assets/fonts/"
+        },
+        {
+            "src": "/assets/fotemenu/(.*)",
+            "dest": "/public/assets/fotomenu/"
+        },
+        {
             "src": "/assets/images/(.*)",
             "dest": "/public/assets/images/"
         },
         {
             "src": "/assets/js/(.*)",
             "dest": "/public/assets/js/"
+        },
+        {
+            "src": "/assets/plugins/(.*)",
+            "dest": "/public/assets/plugins/"
+        },
+        {
+            "src": "/assets/qrcodes/(.*)",
+            "dest": "/public/assets/qrcodes/"
         },
         {
             "src": "/assets/scss/(.*)",
